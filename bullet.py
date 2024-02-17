@@ -14,7 +14,6 @@ class Bullet:
 
     def create_bullet(self, screen):
         pygame.draw.rect(screen, self.color, [self.posx, self.posy, self.width, self.height])
-        return self
 
     def moviment_right(self):
         self.posx = self.posx + self.speedx
