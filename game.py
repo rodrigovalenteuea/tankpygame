@@ -30,6 +30,7 @@ def start_game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            '''
             if event.type == pygame.KEYDOWN and pygame.K_f:
                 if screen_options == 0:
                     screen_options = 1
@@ -38,7 +39,7 @@ def start_game():
                     print(pygame.event.get())
                     screen_options = 0
                     pygame.display.set_mode((screen_width - 100, screen_height - 100), screen_setups[screen_options])
-
+            '''
     pygame.quit()
 
 
