@@ -2,7 +2,10 @@ import pygame
 import bullet
 
 class Tank:
-    def __init__(self, division, posx, posy, color, width, height, firerate):
+
+    b = bullet.Bullet
+
+    def __init__(self, posx, posy, color, width, height):
         self.posx = posx
         self.posy = posy
         self.color = color
@@ -32,6 +35,6 @@ class Tank:
     def change_color(self, color):
         self.color = color
 
-    def shot(self):
-        print('disparou')
-        #  create a bullet
+    def shot(self, b, screen):
+        b.create_bullet(screen)
+        b.moviment_left()  # only to tests

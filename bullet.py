@@ -1,6 +1,10 @@
+import pygame.rect
+
+
 class Bullet:
-    def __init__(self, tank, speedx, speedy, posx, posy, width, height):
-        self.tank = tank
+    def __init__(self, tankid, color, speedx, speedy, posx, posy, width, height):
+        self.tankid = tankid
+        self.color = color
         self.speedx = speedx
         self.speedy = speedy
         self.posx = posx
@@ -8,18 +12,22 @@ class Bullet:
         self.width = width
         self.height = height
 
-    def moviment_right(self, posx, speedx):
-        self.posx = posx + speedx
-        return posx
+    def create_bullet(self, screen):
+        pygame.draw.rect(screen, self.color, [self.posx, self.posy, self.width, self.height])
+        return self
 
-    def moviment_left(self, posx, speedx):
-        self.posx = posx - speedx
-        return posx
+    def moviment_right(self):
+        self.posx = self.posx + self.speedx
+        return self.posx
 
-    def moviment_up(self, posy, speedy):
-        self.posy = posy - speedy
-        return posy
+    def moviment_left(self):
+        self.posx = self.posx - self.speedx
+        return self.posx
 
-    def moviment_down(self, posy, speedy):
-        self.posy = posy + speedy
-        return posy
+    def moviment_up(self):
+        self.posy = self.posy - self.speedy
+        return self.posy
+
+    def moviment_down(self):
+        self.posy = self.posy + self.speedy
+        return self.posy
