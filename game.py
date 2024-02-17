@@ -29,7 +29,7 @@ def start_game():
         pygame.display.update()
         timer.tick(fps)
         menu_screen.fill((0, 0, 0))
-        #menu.draw_main_menu(menu_screen)
+        #menu.draw_main_menu(menu_screen)   
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
