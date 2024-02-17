@@ -2,6 +2,7 @@ import pygame
 import os
 import obstacles
 import menu
+import tank
 
 pygame.init()
 
@@ -17,16 +18,19 @@ screen_width, screen_height = info.current_w, info.current_h
 menu_screen = pygame.display.set_mode((screen_width - 100, screen_height - 100), screen_setups[screen_options])
 pygame.display.set_caption('Tankpygame ta ligado!')
 
+
 def start_game():
 
     global menu_screen, obs, screen_options
     running = True
 
+
     while running:
         pygame.display.update()
         timer.tick(fps)
         menu_screen.fill((0, 0, 0))
-        menu.draw_main_menu(menu_screen)
+        #menu.draw_main_menu(menu_screen)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False

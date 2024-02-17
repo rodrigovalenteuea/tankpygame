@@ -1,15 +1,15 @@
 import pygame
 
 class Tank:
-    def __init__(self, posx, posy, colour, width, height):
+    def __init__(self, posx, posy, color, width, height):
         self.posx = posx
         self.posy = posy
-        self.colour = colour
+        self.color = color
         self.width = width
         self.height = height
 
     def create_tank(self, screen):
-        pygame.draw.rect(screen, self.colour, [self.posx, self.posy, self.width, self.height])
+        pygame.draw.rect(screen, self.color, [self.posx, self.posy, self.width, self.height])
         return self
 
     def move_up(self):
@@ -27,3 +27,6 @@ class Tank:
     def move_down(self):
         self.posy = self.posy + 3
         return self.posy
+
+    def change_color(self, color):
+        self.color = color
