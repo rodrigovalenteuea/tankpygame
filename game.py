@@ -1,52 +1,45 @@
 import pygame
 import os
+import obstacles
+import menu
 
 pygame.init()
 
 main_menu = True
-
+obs = obstacles.Obstacles(500, 400, 100, 100)
+timer = pygame.time.Clock()
+fps = 60
 screen_setups = [pygame.RESIZABLE, pygame.FULLSCREEN]
+screen_options = 0
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 info = pygame.display.Info()
 screen_width, screen_height = info.current_w, info.current_h
-menu_screen = pygame.display.set_mode((screen_width - 100, screen_height - 100), screen_setups[0])
+menu_screen = pygame.display.set_mode((screen_width - 100, screen_height - 100), screen_setups[screen_options])
 pygame.display.set_caption('Tankpygame ta ligado!')
 
-timer = pygame.time.Clock()
-fps = 60
-
-font = pygame.font.Font('freesansbold.ttf', 24)
-
-def draw_main_menu():
-    global menu_screen
-    pygame.draw.rect(menu_screen, (255, 0, 0), [200, 300, 260, 40])
-    menu_text = font.render('Start Game', True, (200, 200, 200))
-    menu_screen.blit(menu_text, (207, 305))
-
-def draw_game():
-    pass
-
 def start_game():
-    global menu_screen
+
+    global menu_screen, obs, screen_options
     running = True
+
     while running:
         pygame.display.update()
         timer.tick(fps)
         menu_screen.fill((0, 0, 0))
-
-        if main_menu:
-            draw_main_menu()
-        else:
-            pass
-
-        key = pygame.key.get_pressed()
-        if key[pygame.K_ESCAPE]:
-            running = False
-
+        menu.draw_main_menu(menu_screen)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.KEYDOWN and pygame.K_f:
+                if screen_options == 0:
+                    screen_options = 1
+                    pygame.display.set_mode((0, 0), screen_setups[screen_options])
+                elif screen_options == 1:
+                    print(pygame.event.get())
+                    screen_options = 0
+                    pygame.display.set_mode((screen_width - 100, screen_height - 100), screen_setups[screen_options])
 
     pygame.quit()
+
 
 start_game()
