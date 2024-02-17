@@ -27,20 +27,18 @@ def start_game():
         timer.tick(fps)
         menu_screen.fill((0, 0, 0))
         menu.draw_main_menu(menu_screen)
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.KEYDOWN and pygame.key.key_code('d') == 100:
+            if event.type == pygame.KEYDOWN and pygame.K_f:
                 if screen_options == 0:
                     screen_options = 1
                     pygame.display.set_mode((0, 0), screen_setups[screen_options])
                 elif screen_options == 1:
+                    print(pygame.event.get())
                     screen_options = 0
                     pygame.display.set_mode((screen_width - 100, screen_height - 100), screen_setups[screen_options])
 
-
-    print(pygame.font.get_fonts())
     pygame.quit()
 
 
