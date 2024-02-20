@@ -20,12 +20,6 @@ pygame.display.set_caption('Tankpygame ta ligado!')
 largura = screen_width
 altura = screen_height
 
-# test's variables
-#tank1 = tank.Tank(screen_width * 0.8, screen_height * 0.5, 'green', 100, 100)
-#bullet1 = bullet.Bullet(tank1, 'red', 5, 5, tank1.posx + 100, tank1.posy + 100, 20, 20)
-#obs = obstacles.Obstacles(500, 400, 100, 100)
-
-
 image_fundo = pygame.image.load('background.png').convert()
 image_fundo = pygame.transform.scale(image_fundo, (screen_width, screen_height))
 qtd_tanks = 4
