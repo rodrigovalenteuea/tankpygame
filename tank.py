@@ -1,40 +1,49 @@
 import pygame
-import bullet
+class Tank(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
 
-class Tank:
+        self.moving_left = False
+        self.moving_right = False
+        self.moving_up = False
+        self.moving_down = False
 
-    b = bullet.Bullet
+        self.speed = 5
 
-    def __init__(self, posx, posy, color, width, height):
-        self.posx = posx
-        self.posy = posy
-        self.color = color
-        self.width = width
-        self.height = height
+        self.sprites = []
+        self.sprites.append(pygame.image.load('tank1.png'))
+        self.sprites.append(pygame.image.load('tank2.png'))
+        self.atual = 0
+        self.image = self.sprites[self.atual]
 
-    def create_tank(self, screen):
-        pygame.draw.rect(screen, self.color, [self.posx, self.posy, self.width, self.height])
-        return self
+        self.image = pygame.transform.scale(self.image, (64, 32))
 
-    def move_up(self):
-        self.posy = self.posy - 3
-        return self.posy
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 100, 100
+
+        self.animar = False
+
+    def update(self):
+        if self.animar == True:
+            self.atual = self.atual + 0.05
+            if self.atual >= len(self.sprites):
+                self.atual = 0
+                self.animar = False
+            self.image = self.sprites[int(self.atual)]
+            self.image = pygame.transform.scale(self.image, (64, 32))
+
+    def atacar(self):
+        self.animar = True
 
     def move_left(self):
-        self.posx = self.posx - 3
-        return self.posx
+        self.rect.x -= self.speed
 
     def move_right(self):
-        self.posx = self.posx + 3
-        return self.posx
+        self.rect.x += self.speed
+
+    def move_up(self):
+        self.rect.y -= self.speed
 
     def move_down(self):
-        self.posy = self.posy + 3
-        return self.posy
+        self.rect.y += self.speed
 
-    def change_color(self, color):
-        self.color = color
-
-    def shot(self, b, screen):
-        b.create_bullet(screen)
-        b.moviment_left()  # only to tests
