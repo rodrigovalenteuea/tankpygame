@@ -1,14 +1,16 @@
 import pygame
+from bullet import Bullet
 class Tank(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, direcao):
         pygame.sprite.Sprite.__init__(self)
 
+        self.bullets = []
         self.moving_left = False
         self.moving_right = False
         self.moving_up = False
         self.moving_down = False
-
-        self.speed = 5
+        self.lifes = 2
+        self.speed = 6
 
         self.sprites = []
         self.sprites.append(pygame.image.load('tank1.png'))
@@ -22,6 +24,8 @@ class Tank(pygame.sprite.Sprite):
         self.rect.topleft = 100, 100
 
         self.animar = False
+
+        self.direcao = direcao
 
     def update(self):
         if self.animar == True:
@@ -47,3 +51,8 @@ class Tank(pygame.sprite.Sprite):
     def move_down(self):
         self.rect.y += self.speed
 
+    def atingido(self):
+        self.lifes -= 1
+    def atirar(self, tankx, tanky, dir):
+        bullet = Bullet(tankx, tanky, dir)
+        self.bullets.append(bullet)
