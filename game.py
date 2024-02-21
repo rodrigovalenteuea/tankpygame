@@ -12,6 +12,13 @@ main_menu = True
 timer = pygame.time.Clock()
 fps = 60
 
+class RectSprite(pygame.sprite.Sprite):
+    def __init__(self, x, y, width, height, color):
+        super().__init__()
+        self.image = pygame.Surface((width, height))
+        self.image.fill(color)
+        self.rect = self.image.get_rect(topleft=(x, y))
+
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 info = pygame.display.Info()
 screen_width, screen_height = info.current_w, info.current_h
@@ -20,10 +27,16 @@ pygame.display.set_caption('Tankpygame ta ligado!')
 largura = screen_width
 altura = screen_height
 
-image_fundo = pygame.image.load('background.png').convert()
+image_fundo = pygame.image.load('background1.jpg').convert()
 image_fundo = pygame.transform.scale(image_fundo, (screen_width, screen_height))
-qtd_tanks = 4
 
+
+
+
+
+
+
+qtd_tanks = 4
 vet_tanks = []
 ultima_direcao = []
 for i in range(qtd_tanks):
@@ -37,29 +50,71 @@ for i in range(qtd_tanks):
         ultima_direcao.append(4)
 todas_as_sprites = pygame.sprite.Group()
 i = 0
+COLOR_BLACK = (0, 0, 0)
+COLOR_WHITE = (255, 255, 255)
+
+
+# score text
+score_font = pygame.font.Font('PressStart2P.ttf', 44)
+score_text = score_font.render('VICTORY', True, COLOR_WHITE, COLOR_BLACK)
+score_text_rect = score_text.get_rect()
+score_text_rect.center = (680, 50)
+
+# victory text
+victory_font = pygame.font.Font('PressStart2P.ttf', 100)
+victory_text = victory_font.render('VICTORY', True, COLOR_WHITE, COLOR_BLACK)
+victory_text_rect = score_text.get_rect()
+victory_text_rect.center = (450, 350)
+
 for i in range(qtd_tanks):
     tank1 = tank.Tank(ultima_direcao[i])
     vet_tanks.append(tank1)
     todas_as_sprites.add(tank1)
     if i == 0:
+        vet_tanks[i].image = pygame.image.load("tank_right.png")
+        vet_tanks[i].image = pygame.transform.scale(vet_tanks[i].image, (64, 64))
         vet_tanks[i].rect.x = 0
         vet_tanks[i].rect.y = (altura / 2) - ((vet_tanks[i].rect.height) / 2)
     elif i == 1:
+        vet_tanks[i].image = pygame.image.load("tank_left.png")
+        vet_tanks[i].image = pygame.transform.scale(vet_tanks[i].image, (64, 64))
         vet_tanks[i].rect.x = largura - vet_tanks[i].rect.width
+
         vet_tanks[i].rect.y = (altura / 2) - ((vet_tanks[i].rect.height) / 2)
     elif i == 2:
+        vet_tanks[i].image = pygame.image.load("tank_up.png")
+        vet_tanks[i].image = pygame.transform.scale(vet_tanks[i].image, (64, 64))
         vet_tanks[i].rect.x = (largura/2) - ((vet_tanks[i].rect.width) / 2)
         vet_tanks[i].rect.y = altura - vet_tanks[i].rect.height
     elif i == 3:
+        vet_tanks[i].image = pygame.image.load("tank_down.png")
+        vet_tanks[i].image = pygame.transform.scale(vet_tanks[i].image, (64, 64))
         vet_tanks[i].rect.x = (largura/2) - ((vet_tanks[i].rect.width) / 2)
         vet_tanks[i].rect.y = 0
 
+# Adicionando sprites à lista
+listRectSprite = []
+rect1 = RectSprite(largura/2-250, altura/2 - 200, 500, 20, COLOR_WHITE)
+rect2 = RectSprite(largura/2-250, altura/2+200, 500, 20, COLOR_WHITE)
+rect3 = RectSprite(largura/2-250, altura/2-140, 20, 300, COLOR_WHITE)
+rect4 = RectSprite(largura/2+250-20, altura/2-140, 20, 300, COLOR_WHITE)
+listRectSprite.append(rect1)
+listRectSprite.append(rect2)
+listRectSprite.append(rect3)
+listRectSprite.append(rect4)
+
+todas_as_sprites.add(listRectSprite)
+
 def start_game():
 
+<<<<<<< HEAD
     global menu_screen
+=======
+    global menu_screen, qtd_tanks
+>>>>>>> 6a98f8d (last update)
     while True:
         timer.tick(fps)
-        menu_screen.fill((255, 255, 255))
+        #menu_screen.fill((0, 128, 0))
         #tela.fill(BRANCO)
         for i in vet_tanks:
             if len(i.bullets) > 0:
@@ -278,10 +333,68 @@ def start_game():
                 j += 1
             i += 1
 
+<<<<<<< HEAD
+=======
+            # collision bullet with obstacle
+            i = 0
+            j = 0
+            while i < len(vet_tanks):
+                j = 0
+                while j < len(vet_tanks[i].bullets):
+                    if (vet_tanks[i].bullets[j].rect.colliderect(rect1)):
+                        vet_tanks[i].bullets[j].rect.x = -40
+                        vet_tanks[i].bullets.pop(j)
+                        i -= 1
+                    elif vet_tanks[i].bullets[j].rect.colliderect(rect2):
+                        vet_tanks[i].bullets[j].rect.x = -40
+                        vet_tanks[i].bullets.pop(j)
+                        i -= 1
+                    elif vet_tanks[i].bullets[j].rect.colliderect(rect3):
+                        vet_tanks[i].bullets[j].rect.y = -40
+                        vet_tanks[i].bullets.pop(j)
+                        i -= 1
+                    elif vet_tanks[i].bullets[j].rect.colliderect(rect4):
+                        vet_tanks[i].bullets[j].rect.y = -40
+                        vet_tanks[i].bullets.pop(j)
+                        i -= 1
+                    j += 1
+                i += 1
+            # collision bullet with tank
+            i = 0
+            j = 0
+            while i < len(vet_tanks):
+                j = 0
+                while j < len(vet_tanks):
+                    if i != j:
+                        k = 0
+                        if len(vet_tanks[j].bullets) > 0:
+                            while k < len(vet_tanks[j].bullets):
+                                if vet_tanks[i].rect.colliderect(vet_tanks[j].bullets[k]):
+                                    if vet_tanks[i].lifes>0:
+                                        vet_tanks[j].bullets[k].rect.x = -40
+                                        vet_tanks[j].bullets.pop(k)
+                                        vet_tanks[i].atingido()
+
+                                        if vet_tanks[i].lifes == 0:
+                                            vet_tanks[i].rect.topright = -100, -100
+                                            vet_tanks[i].image.set_alpha(0)
+                                            qtd_tanks -= 1
+                                    i -= 1
+                                k += 1
+                    j += 1
+                i += 1
+>>>>>>> 6a98f8d (last update)
         menu_screen.blit(image_fundo, (0, 0))
+        if qtd_tanks < 2:
+            ganhou = -1
+            for i in range(len(vet_tanks)):
+                if vet_tanks[i].lifes != 0:
+                    ganhou = i+1
+            menu_screen.fill(COLOR_BLACK)
+            victory_text = victory_font.render('VICTORY' + ' PLAYER ' + str(ganhou), True, COLOR_WHITE, COLOR_BLACK)
+            menu_screen.blit(victory_text, victory_text_rect)
+            pygame.time.delay(3)
         todas_as_sprites.draw(menu_screen)
         todas_as_sprites.update()
         pygame.display.flip()
-
-
 start_game()

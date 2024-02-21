@@ -6,13 +6,30 @@ class Bullet(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
 
+<<<<<<< HEAD
         self.color = (255, 255, 255)
         self.speedx = 5
         self.speedy = 5
+=======
+
+
+        self.color = (255, 255, 255)
+        self.speedx = 10
+        self.speedy = 10
+>>>>>>> 6a98f8d (last update)
         self.posx = posx
         self.posy = posy
         self.width = 20
         self.height = 20
+<<<<<<< HEAD
+
+        self.dir = dir
+        self.image = pygame.image.load("square.png")
+        self.image = pygame.transform.scale(self.image, (10, 10))
+        self.rect = self.image.get_rect()
+        self.rect.topleft = self.posx, self.posy
+=======
+>>>>>>> 6a98f8d (last update)
 
         self.dir = dir
         self.image = pygame.image.load("square.png")
@@ -20,9 +37,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = self.posx, self.posy
 
-    def create_bullet(self, screen):
-        pygame.draw.rect(screen, self.color, [self.posx, self.posy, self.width, self.height])
-
+<<<<<<< HEAD
     def moviment_right(self):
         self.rect.x += self.speedx
 
@@ -38,6 +53,8 @@ class Bullet(pygame.sprite.Sprite):
         self.posy = self.posy + self.speedy
         return self.posy
 
+=======
+>>>>>>> 6a98f8d (last update)
     def moviment(self):
         if self.dir == 1:
             self.rect.x -= self.speedx
